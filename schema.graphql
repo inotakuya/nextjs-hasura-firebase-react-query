@@ -1,0 +1,510 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: query_root
+    mutation: mutation_root
+    subscription: subscription_root
+}
+
+"mutation root"
+type mutation_root {
+    "delete data from the table: \"news\""
+    delete_news(
+        "filter the rows which have to be deleted"
+        where: news_bool_exp!
+    ): news_mutation_response
+    "delete single row from the table: \"news\""
+    delete_news_by_pk(id: uuid!): news
+    "delete data from the table: \"tasks\""
+    delete_tasks(
+        "filter the rows which have to be deleted"
+        where: tasks_bool_exp!
+    ): tasks_mutation_response
+    "delete single row from the table: \"tasks\""
+    delete_tasks_by_pk(id: uuid!): tasks
+    "insert data into the table: \"news\""
+    insert_news(
+        "the rows to be inserted"
+        objects: [news_insert_input!]!,
+        "on conflict condition"
+        on_conflict: news_on_conflict
+    ): news_mutation_response
+    "insert a single row into the table: \"news\""
+    insert_news_one(
+        "the row to be inserted"
+        object: news_insert_input!,
+        "on conflict condition"
+        on_conflict: news_on_conflict
+    ): news
+    "insert data into the table: \"tasks\""
+    insert_tasks(
+        "the rows to be inserted"
+        objects: [tasks_insert_input!]!,
+        "on conflict condition"
+        on_conflict: tasks_on_conflict
+    ): tasks_mutation_response
+    "insert a single row into the table: \"tasks\""
+    insert_tasks_one(
+        "the row to be inserted"
+        object: tasks_insert_input!,
+        "on conflict condition"
+        on_conflict: tasks_on_conflict
+    ): tasks
+    "update data of the table: \"news\""
+    update_news(
+        "sets the columns of the filtered rows to the given values"
+        _set: news_set_input,
+        "filter the rows which have to be updated"
+        where: news_bool_exp!
+    ): news_mutation_response
+    "update single row of the table: \"news\""
+    update_news_by_pk(
+        "sets the columns of the filtered rows to the given values"
+        _set: news_set_input,
+        pk_columns: news_pk_columns_input!
+    ): news
+    "update data of the table: \"tasks\""
+    update_tasks(
+        "sets the columns of the filtered rows to the given values"
+        _set: tasks_set_input,
+        "filter the rows which have to be updated"
+        where: tasks_bool_exp!
+    ): tasks_mutation_response
+    "update single row of the table: \"tasks\""
+    update_tasks_by_pk(
+        "sets the columns of the filtered rows to the given values"
+        _set: tasks_set_input,
+        pk_columns: tasks_pk_columns_input!
+    ): tasks
+}
+
+"columns and relationships of \"news\""
+type news {
+    content: String!
+    created_at: timestamptz!
+    id: uuid!
+}
+
+"aggregated selection of \"news\""
+type news_aggregate {
+    aggregate: news_aggregate_fields
+    nodes: [news!]!
+}
+
+"aggregate fields of \"news\""
+type news_aggregate_fields {
+    count(columns: [news_select_column!], distinct: Boolean): Int!
+    max: news_max_fields
+    min: news_min_fields
+}
+
+"aggregate max on columns"
+type news_max_fields {
+    content: String
+    created_at: timestamptz
+    id: uuid
+}
+
+"aggregate min on columns"
+type news_min_fields {
+    content: String
+    created_at: timestamptz
+    id: uuid
+}
+
+"response of any mutation on the table \"news\""
+type news_mutation_response {
+    "number of rows affected by the mutation"
+    affected_rows: Int!
+    "data from the rows affected by the mutation"
+    returning: [news!]!
+}
+
+type query_root {
+    "fetch data from the table: \"news\""
+    news(
+        "distinct select on columns"
+        distinct_on: [news_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [news_order_by!],
+        "filter the rows returned"
+        where: news_bool_exp
+    ): [news!]!
+    "fetch aggregated fields from the table: \"news\""
+    news_aggregate(
+        "distinct select on columns"
+        distinct_on: [news_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [news_order_by!],
+        "filter the rows returned"
+        where: news_bool_exp
+    ): news_aggregate!
+    "fetch data from the table: \"news\" using primary key columns"
+    news_by_pk(id: uuid!): news
+    "fetch data from the table: \"tasks\""
+    tasks(
+        "distinct select on columns"
+        distinct_on: [tasks_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [tasks_order_by!],
+        "filter the rows returned"
+        where: tasks_bool_exp
+    ): [tasks!]!
+    "fetch aggregated fields from the table: \"tasks\""
+    tasks_aggregate(
+        "distinct select on columns"
+        distinct_on: [tasks_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [tasks_order_by!],
+        "filter the rows returned"
+        where: tasks_bool_exp
+    ): tasks_aggregate!
+    "fetch data from the table: \"tasks\" using primary key columns"
+    tasks_by_pk(id: uuid!): tasks
+}
+
+type subscription_root {
+    "fetch data from the table: \"news\""
+    news(
+        "distinct select on columns"
+        distinct_on: [news_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [news_order_by!],
+        "filter the rows returned"
+        where: news_bool_exp
+    ): [news!]!
+    "fetch aggregated fields from the table: \"news\""
+    news_aggregate(
+        "distinct select on columns"
+        distinct_on: [news_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [news_order_by!],
+        "filter the rows returned"
+        where: news_bool_exp
+    ): news_aggregate!
+    "fetch data from the table: \"news\" using primary key columns"
+    news_by_pk(id: uuid!): news
+    "fetch data from the table: \"tasks\""
+    tasks(
+        "distinct select on columns"
+        distinct_on: [tasks_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [tasks_order_by!],
+        "filter the rows returned"
+        where: tasks_bool_exp
+    ): [tasks!]!
+    "fetch aggregated fields from the table: \"tasks\""
+    tasks_aggregate(
+        "distinct select on columns"
+        distinct_on: [tasks_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [tasks_order_by!],
+        "filter the rows returned"
+        where: tasks_bool_exp
+    ): tasks_aggregate!
+    "fetch data from the table: \"tasks\" using primary key columns"
+    tasks_by_pk(id: uuid!): tasks
+}
+
+"columns and relationships of \"tasks\""
+type tasks {
+    created_at: timestamptz!
+    id: uuid!
+    title: String!
+    user_id: String!
+}
+
+"aggregated selection of \"tasks\""
+type tasks_aggregate {
+    aggregate: tasks_aggregate_fields
+    nodes: [tasks!]!
+}
+
+"aggregate fields of \"tasks\""
+type tasks_aggregate_fields {
+    count(columns: [tasks_select_column!], distinct: Boolean): Int!
+    max: tasks_max_fields
+    min: tasks_min_fields
+}
+
+"aggregate max on columns"
+type tasks_max_fields {
+    created_at: timestamptz
+    id: uuid
+    title: String
+    user_id: String
+}
+
+"aggregate min on columns"
+type tasks_min_fields {
+    created_at: timestamptz
+    id: uuid
+    title: String
+    user_id: String
+}
+
+"response of any mutation on the table \"tasks\""
+type tasks_mutation_response {
+    "number of rows affected by the mutation"
+    affected_rows: Int!
+    "data from the rows affected by the mutation"
+    returning: [tasks!]!
+}
+
+"unique or primary key constraints on table \"news\""
+enum news_constraint {
+    "unique or primary key constraint"
+    news_pkey
+}
+
+"select columns of table \"news\""
+enum news_select_column {
+    "column name"
+    content
+    "column name"
+    created_at
+    "column name"
+    id
+}
+
+"update columns of table \"news\""
+enum news_update_column {
+    "column name"
+    content
+    "column name"
+    created_at
+    "column name"
+    id
+}
+
+"column ordering options"
+enum order_by {
+    "in ascending order, nulls last"
+    asc
+    "in ascending order, nulls first"
+    asc_nulls_first
+    "in ascending order, nulls last"
+    asc_nulls_last
+    "in descending order, nulls first"
+    desc
+    "in descending order, nulls first"
+    desc_nulls_first
+    "in descending order, nulls last"
+    desc_nulls_last
+}
+
+"unique or primary key constraints on table \"tasks\""
+enum tasks_constraint {
+    "unique or primary key constraint"
+    tasks_pkey
+}
+
+"select columns of table \"tasks\""
+enum tasks_select_column {
+    "column name"
+    created_at
+    "column name"
+    id
+    "column name"
+    title
+    "column name"
+    user_id
+}
+
+"update columns of table \"tasks\""
+enum tasks_update_column {
+    "column name"
+    created_at
+    "column name"
+    id
+    "column name"
+    title
+    "column name"
+    user_id
+}
+
+"Boolean expression to compare columns of type \"String\". All fields are combined with logical 'AND'."
+input String_comparison_exp {
+    _eq: String
+    _gt: String
+    _gte: String
+    "does the column match the given case-insensitive pattern"
+    _ilike: String
+    _in: [String!]
+    "does the column match the given POSIX regular expression, case insensitive"
+    _iregex: String
+    _is_null: Boolean
+    "does the column match the given pattern"
+    _like: String
+    _lt: String
+    _lte: String
+    _neq: String
+    "does the column NOT match the given case-insensitive pattern"
+    _nilike: String
+    _nin: [String!]
+    "does the column NOT match the given POSIX regular expression, case insensitive"
+    _niregex: String
+    "does the column NOT match the given pattern"
+    _nlike: String
+    "does the column NOT match the given POSIX regular expression, case sensitive"
+    _nregex: String
+    "does the column NOT match the given SQL regular expression"
+    _nsimilar: String
+    "does the column match the given POSIX regular expression, case sensitive"
+    _regex: String
+    "does the column match the given SQL regular expression"
+    _similar: String
+}
+
+"Boolean expression to filter rows from the table \"news\". All fields are combined with a logical 'AND'."
+input news_bool_exp {
+    _and: [news_bool_exp!]
+    _not: news_bool_exp
+    _or: [news_bool_exp!]
+    content: String_comparison_exp
+    created_at: timestamptz_comparison_exp
+    id: uuid_comparison_exp
+}
+
+"input type for inserting data into table \"news\""
+input news_insert_input {
+    content: String
+    created_at: timestamptz
+    id: uuid
+}
+
+"on conflict condition type for table \"news\""
+input news_on_conflict {
+    constraint: news_constraint!
+    update_columns: [news_update_column!]! = []
+    where: news_bool_exp
+}
+
+"Ordering options when selecting data from \"news\"."
+input news_order_by {
+    content: order_by
+    created_at: order_by
+    id: order_by
+}
+
+"primary key columns input for table: news"
+input news_pk_columns_input {
+    id: uuid!
+}
+
+"input type for updating data in table \"news\""
+input news_set_input {
+    content: String
+    created_at: timestamptz
+    id: uuid
+}
+
+"Boolean expression to filter rows from the table \"tasks\". All fields are combined with a logical 'AND'."
+input tasks_bool_exp {
+    _and: [tasks_bool_exp!]
+    _not: tasks_bool_exp
+    _or: [tasks_bool_exp!]
+    created_at: timestamptz_comparison_exp
+    id: uuid_comparison_exp
+    title: String_comparison_exp
+    user_id: String_comparison_exp
+}
+
+"input type for inserting data into table \"tasks\""
+input tasks_insert_input {
+    created_at: timestamptz
+    id: uuid
+    title: String
+    user_id: String
+}
+
+"on conflict condition type for table \"tasks\""
+input tasks_on_conflict {
+    constraint: tasks_constraint!
+    update_columns: [tasks_update_column!]! = []
+    where: tasks_bool_exp
+}
+
+"Ordering options when selecting data from \"tasks\"."
+input tasks_order_by {
+    created_at: order_by
+    id: order_by
+    title: order_by
+    user_id: order_by
+}
+
+"primary key columns input for table: tasks"
+input tasks_pk_columns_input {
+    id: uuid!
+}
+
+"input type for updating data in table \"tasks\""
+input tasks_set_input {
+    created_at: timestamptz
+    id: uuid
+    title: String
+    user_id: String
+}
+
+"Boolean expression to compare columns of type \"timestamptz\". All fields are combined with logical 'AND'."
+input timestamptz_comparison_exp {
+    _eq: timestamptz
+    _gt: timestamptz
+    _gte: timestamptz
+    _in: [timestamptz!]
+    _is_null: Boolean
+    _lt: timestamptz
+    _lte: timestamptz
+    _neq: timestamptz
+    _nin: [timestamptz!]
+}
+
+"Boolean expression to compare columns of type \"uuid\". All fields are combined with logical 'AND'."
+input uuid_comparison_exp {
+    _eq: uuid
+    _gt: uuid
+    _gte: uuid
+    _in: [uuid!]
+    _is_null: Boolean
+    _lt: uuid
+    _lte: uuid
+    _neq: uuid
+    _nin: [uuid!]
+}
+
+
+scalar timestamptz
+
+scalar uuid
